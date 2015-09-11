@@ -11,10 +11,12 @@ describe('GitHub profile finder', function() {
     expect(browser.getTitle()).toEqual('Github user search');
   });
 
-  it('finds profiles', function() {
-    searchBox.sendKeys('spike01');
+  it('finds the last Spike', function() { //this is a silly test, but roll with it
+    searchBox.sendKeys('spike');
     searchButton.click();
-    expect(element(by.binding('user.login')).getText()).toEqual('spike01');
+
+    var profiles = element.all(by.repeater('user in searchCtrl.searchResult.items'));
+    expect(profiles.last().getText('spike').isPresent()).toBe(true); //This is, again, wrong.
   });
 
 });
